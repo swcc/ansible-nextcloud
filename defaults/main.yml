@@ -1,0 +1,5 @@
+---
+nextcloud_version: 18.0.4
+nextcloud_destination: /var/www
+nextcloud_dir_user: www-data
+nextcloud_dir_group: www-data
