@@ -34,3 +34,10 @@
     remote_src: yes
     owner: "{{ nextcloud_dir_user }}"
     group: "{{ nextcloud_dir_group }}"
+
+- name: Setup nextcloud cron to run every 5 minutes
+  cron:
+    name: "Nextcloud cron"
+    minute: "*/5"
+    user: "{{ nextcloud_dir_user }}"
+    job: "/usr/bin/php -f {{ nextcloud_destination }}/nextcloud/cron.php"
