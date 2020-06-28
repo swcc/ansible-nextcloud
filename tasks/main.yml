@@ -48,3 +48,7 @@
     regex: '^memory_limit ='
     line: "memory_limit = {{ nextcloud_php_memory_limit }}"
   when: php_fpm_version is defined
+
+- name: Setup automatic daily backups
+  include_tasks: backups.yml
+  when: nextcloud_backup is defined

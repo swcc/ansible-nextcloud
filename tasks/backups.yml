@@ -1,0 +1,22 @@
+---
+- name: Add .pgpass for backup script
+  lineinfile:
+    path: /root/.pgpass
+    mode: '600'
+    create: true
+    regex: "^{{ nextcloud_backup.pg.host|default('localhost') }}:{{ nextcloud_backup.pg.port|default(5432) }}:{{ nextcloud_backup.pg.dbname|default('nextcloud') }}:{{ nextcloud_backup.pg.username|default('nextcloud') }}"
+    line: "{{ nextcloud_backup.pg.host|default('localhost') }}:{{ nextcloud_backup.pg.port|default(5432) }}:{{ nextcloud_backup.pg.dbname|default('nextcloud') }}:{{ nextcloud_backup.pg.username|default('nextcloud') }}:{{ nextcloud_backup.pg.password }}"
+  no_log: true
+
+- name: Add a backup script to backup Data dir + Postgresql database
+  template:
+    src: backup-nextcloud.sh.j2
+    dest: /root/backup-nextcloud.sh
+    mode: '700'
+
+- name: Setup root cron to run backups every day at 3a.m
+  cron:
+    name: "Nextcloud backup cron"
+    minute: "0"
+    hour: "3"
+    job: "/root/backup-nextcloud.sh >> /var/log/backup-nexcloud.log"

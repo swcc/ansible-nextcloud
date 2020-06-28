@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+cd "{{ nextcloud_backup.directory | default(nextcloud_destination + '/nextcloud/data') }}" || exit 1
+
+# Backup start time
+date +"%F %T"
+
+# PG Database backup
+"{{ nextcloud_backup.pg.pg_dump_binary }}" \
+  "{{ nextcloud_backup.pg.dbname|default('nextcloud') }}" \
+  --format=c \
+  -h "{{ nextcloud_backup.pg.host|default('localhost') }}" \
+  -p "{{ nextcloud_backup.pg.port|default(5432) }}" \
+  -U "{{ nextcloud_backup.pg.username|default('nextcloud') }}" \
+  -f "nextcloud-sqlbkp_pg_$(date +"%F").bak"
+
+# Keep last 7 backups
+ls -t nextcloud-sqlbkp_* | tail -n "+{{ nextcloud_backup.retention|default(7) + 1 }}" | xargs --no-run-if-empty rm --
+
+# Data dir backup
+/usr/bin/rsync -avx "{{ nextcloud_backup.directory | default(nextcloud_destination + '/nextcloud/data') }}" "{{ nextcloud_backup.destination_server }}:/home/$(hostname)"
+
+# Backup end time
+date +"%F %T"

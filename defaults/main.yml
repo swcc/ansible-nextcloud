@@ -5,3 +5,14 @@ nextcloud_dir_user: www-data
 nextcloud_dir_group: www-data
 # php.ini memory_limit parameter
 nextcloud_php_memory_limit: 512M
+# Enable backups with the following variable
+# nextcloud_backup:
+#   destination_server: backups.example.org
+#   retention: 7
+#   pg:
+#     pg_dump_binary: /usr/lib/postgresql/12/bin/pg_dump
+#     host: localhost
+#     port: 5432
+#     dbname: nextcloud
+#     username: nextcloud
+#     password: nextcloud

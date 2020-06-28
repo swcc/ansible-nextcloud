@@ -29,9 +29,25 @@ Role parameters
 | `nextcloud_dir_group`        | `www-data` | `string`        | Which unix group should own the installed directory                                                                    |
 | `nextcloud_php_memory_limit` | `512M`     | `string`        | Php memory_limit setting. Default recommanded by Nextcloud is 512M.                                                    |
 
-_⚠️ Please check the php-fpm variables of the dependent [php-fpm ansible role](https://github.com/NBZ4live/ansible-php-fpm#role-variables) before running this current role. ⚠️_
+_Optional_, backup related variables:
 
-Most importantly check the php version you want to run and set the `php_fpm_version` variable. Here is an example configuration of the `php-fpm` dependent role which should suit most needs:
+| Variable                              | Default                                     | Type            | Description                                                                                             |
+| -----------------------               | :------:                                    | :-------------: | ------------                                                                                            |
+| `nextcloud_backup`                    | -                                           | `object`        | Define this object if you want to backup both the database and the data dir of your Nextcloud instance. |
+| `nextcloud_backup.destination_server` | -                                           | `string`        | Destination backup server which will receive all files (via `rsync`)                                    |
+| `nextcloud_backup.retention`          | `7`                                         | `number`        | Number of days of database backups to keep on the instance                                              |
+| `nextcloud_backup.directory`          | `nextcloud_destination + '/nextcloud/data'` | `string`        | Path of the Nextcloud data directory to backup                                                          |
+| `nextcloud_backup.pg`                 | -                                           | `object`        | Connection details to the database. See below for details of the object keys.                           |
+| `nextcloud_backup.pg.pg_dump_binary`  | -                                           | `string`        | Path of the `pg_dump` binary on the server                                                              |
+| `nextcloud_backup.pg.host`            | `localhost`                                 | `string`        | Host of the postgresql database                                                                         |
+| `nextcloud_backup.pg.port`            | `5432`                                      | `string`        | Port of the postgresql database                                                                         |
+| `nextcloud_backup.pg.dbname`          | `nextcloud`                                 | `string`        | Name of the postgresql database                                                                         |
+| `nextcloud_backup.pg.username`        | `nextcloud`                                 | `string`        | User of the postgresql database                                                                         |
+| `nextcloud_backup.pg.password`        | -                                           | `string`        | Password of the postgresql database                                                                     |
+
+_⚠️ Please also check the php-fpm variables of the dependent [php-fpm ansible role](https://github.com/NBZ4live/ansible-php-fpm#role-variables) before running this current role. ⚠️_
+
+Most importantly check the php version you want to run by setting the `php_fpm_version` variable. Here is an example configuration of the `php-fpm` dependent role which should suit most needs:
 
 ```yaml
 php_fpm_version: 7.4
