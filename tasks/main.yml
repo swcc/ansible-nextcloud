@@ -41,3 +41,10 @@
     minute: "*/5"
     user: "{{ nextcloud_dir_user }}"
     job: "/usr/bin/php -f {{ nextcloud_destination }}/nextcloud/cron.php"
+
+- name: Configure PHP memory limit as recommended by Nextcloud
+  lineinfile:
+    path: "/etc/php/{{ php_fpm_version }}/fpm/php.ini"
+    regex: '^memory_limit ='
+    line: "memory_limit = {{ nextcloud_php_memory_limit }}"
+  when: php_fpm_version is defined
