@@ -21,14 +21,41 @@ Basic example playbook:
 Role parameters
 ----------------
 
-| Variable                | Default    | Type            | Description                                                                                                            |
-| ----------------------- | :------:   | :-------------: | ------------                                                                                                           |
-| `nextcloud_version`     | `18.0.4`   | `string`        | Which nextcloud version to install                                                                                     |
-| `nextcloud_destination` | `/var/www` | `string`        | Where to install Nextcloud (will be installed in "{{ nextcloud_destination}}/nextcloud/" directory on your filesystem) |
-| `nextcloud_dir_user`    | `www-data` | `string`        | Which unix user should own the installed directory                                                                     |
-| `nextcloud_dir_group`   | `www-data` | `string`        | Which unix group should own the installed directory                                                                    |
+| Variable                     | Default    | Type            | Description                                                                                                            |
+| -----------------------      | :------:   | :-------------: | ------------                                                                                                           |
+| `nextcloud_version`          | `18.0.4`   | `string`        | Which nextcloud version to install                                                                                     |
+| `nextcloud_destination`      | `/var/www` | `string`        | Where to install Nextcloud (will be installed in "{{ nextcloud_destination}}/nextcloud/" directory on your filesystem) |
+| `nextcloud_dir_user`         | `www-data` | `string`        | Which unix user should own the installed directory                                                                     |
+| `nextcloud_dir_group`        | `www-data` | `string`        | Which unix group should own the installed directory                                                                    |
+| `nextcloud_php_memory_limit` | `512M`     | `string`        | Php memory_limit setting. Default recommanded by Nextcloud is 512M.                                                    |
 
 _⚠️ Please check the php-fpm variables of the dependent [php-fpm ansible role](https://github.com/NBZ4live/ansible-php-fpm#role-variables) before running this current role. ⚠️_
+
+Most importantly check the php version you want to run and set the `php_fpm_version` variable. Here is an example configuration of the `php-fpm` dependent role which should suit most needs:
+
+```yaml
+php_fpm_version: 7.4
+
+php_fpm_pool_defaults:
+  pm: dynamic
+  pm.max_children: 10
+  pm.start_servers: 2
+  pm.min_spare_servers: 1
+  pm.max_spare_servers: 4
+php_fpm_pools:
+  - name: www
+    user: www-data
+    group: www-data
+    listen: "/run/php/php{{ php_fpm_version }}-fpm.sock"
+    listen.owner: www-data
+    listen.group: www-data
+    chdir: /var/www
+    env:
+      PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+      TMPDIR: "/tmp"
+      TMP: "/tmp"
+      HOSTNAME: "$HOSTNAME"
+```
 
 Makefile for easier Ansible usage
 ------------------
