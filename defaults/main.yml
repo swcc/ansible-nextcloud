@@ -1,5 +1,5 @@
 ---
-nextcloud_version: 18.0.4
+nextcloud_version: 19.0.3
 nextcloud_destination: /var/www
 nextcloud_dir_user: www-data
 nextcloud_dir_group: www-data
@@ -16,3 +16,17 @@ nextcloud_php_memory_limit: 512M
 #     dbname: nextcloud
 #     username: nextcloud
 #     password: nextcloud
+
+# Configure NC via ansible
+# WARNING: EXPERT CONFIG ONLY
+# WARNING: it is recommended to let the installer configure your NC install
+# nextcloud_config:
+#   instanceid: "'{{ vault_nextcloud_instance_id }}'"
+#   version: "'{{ nextcloud_version }}.1'"
+#   dbtype: "'pgsql'"
+#   dbname: "'nextcloud'"
+#   dbhost: "'127.0.0.1'"
+#   dbport: "''"
+#   dbtableprefix: "'oc_'"
+#   dbuser: "'nextcloud'"
+#   dbpassword: "'{{ vault_postgresql_nextcloud_password }}'"

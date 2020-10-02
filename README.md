@@ -15,7 +15,7 @@ Basic example playbook:
   roles:
     - role: swcc.nextcloud
       nextcloud_destination: /home/nextcloud
-      nextcloud_version: 18.0.4
+      nextcloud_version: 19.0.3
 ```
 
 Role parameters
@@ -23,7 +23,7 @@ Role parameters
 
 | Variable                     | Default    | Type            | Description                                                                                                                                                                                                                                                                                     |
 | -----------------------      | :------:   | :-------------: | ------------                                                                                                                                                                                                                                                                                    |
-| `nextcloud_version`          | `18.0.4`   | `string`        | Which nextcloud version to install                                                                                                                                                                                                                                                              |
+| `nextcloud_version`          | `19.0.3`   | `string`        | Which nextcloud version to install                                                                                                                                                                                                                                                              |
 | `nextcloud_destination`      | `/var/www` | `string`        | Where to install Nextcloud (will be installed in "{{ nextcloud_destination}}/nextcloud/" directory on your filesystem)                                                                                                                                                                          |
 | `nextcloud_dir_user`         | `www-data` | `string`        | Which unix user should own the installed directory                                                                                                                                                                                                                                              |
 | `nextcloud_dir_group`        | `www-data` | `string`        | Which unix group should own the installed directory                                                                                                                                                                                                                                             |
