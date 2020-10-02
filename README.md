@@ -21,13 +21,14 @@ Basic example playbook:
 Role parameters
 ----------------
 
-| Variable                     | Default    | Type            | Description                                                                                                            |
-| -----------------------      | :------:   | :-------------: | ------------                                                                                                           |
-| `nextcloud_version`          | `18.0.4`   | `string`        | Which nextcloud version to install                                                                                     |
-| `nextcloud_destination`      | `/var/www` | `string`        | Where to install Nextcloud (will be installed in "{{ nextcloud_destination}}/nextcloud/" directory on your filesystem) |
-| `nextcloud_dir_user`         | `www-data` | `string`        | Which unix user should own the installed directory                                                                     |
-| `nextcloud_dir_group`        | `www-data` | `string`        | Which unix group should own the installed directory                                                                    |
-| `nextcloud_php_memory_limit` | `512M`     | `string`        | Php memory_limit setting. Default recommanded by Nextcloud is 512M.                                                    |
+| Variable                     | Default    | Type            | Description                                                                                                                                                                                                                                                                                     |
+| -----------------------      | :------:   | :-------------: | ------------                                                                                                                                                                                                                                                                                    |
+| `nextcloud_version`          | `18.0.4`   | `string`        | Which nextcloud version to install                                                                                                                                                                                                                                                              |
+| `nextcloud_destination`      | `/var/www` | `string`        | Where to install Nextcloud (will be installed in "{{ nextcloud_destination}}/nextcloud/" directory on your filesystem)                                                                                                                                                                          |
+| `nextcloud_dir_user`         | `www-data` | `string`        | Which unix user should own the installed directory                                                                                                                                                                                                                                              |
+| `nextcloud_dir_group`        | `www-data` | `string`        | Which unix group should own the installed directory                                                                                                                                                                                                                                             |
+| `nextcloud_php_memory_limit` | `512M`     | `string`        | Php memory_limit setting. Default recommanded by Nextcloud is 512M.                                                                                                                                                                                                                             |
+| `nextcloud_config`           | `{}`       | `dict`          | a dict object of key values to set in the `config/config.php` file of Nextcloud. Beware of the content as they need to be valid PHP values. E.g. a string should be defined in your ansible dictionnary as `"'mystring'"` for the value to be the litteral `'mystring'` in the config.php file. |
 
 _Optional_, backup related variables:
 

@@ -11,6 +11,8 @@
       - php{{ php_fpm_version }}-imagick
       - php{{ php_fpm_version }}-intl
       - php{{ php_fpm_version }}-json
+      - php{{ php_fpm_version }}-gmp
+      - php{{ php_fpm_version }}-bcmath
       - php{{ php_fpm_version }}-mbstring
       - php{{ php_fpm_version }}-mysql
       - php{{ php_fpm_version }}-pgsql
@@ -52,3 +54,13 @@
 - name: Setup automatic daily backups
   include_tasks: backups.yml
   when: nextcloud_backup is defined
+
+- name: Configure Nextcloud installation
+  lineinfile:
+    path: "{{ nextcloud_destination }}/nextcloud/config/config.php"
+    regexp: "^  '{{ item.key }}' => .*,$"
+    line: "  '{{ item.key }}' => {{ item.value }},"
+    insertbefore: '^\);$'
+  no_log: yes
+  loop: "{{ nextcloud_config|dict2items }}"
+  when: nextcloud_config is defined
