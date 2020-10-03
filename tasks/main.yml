@@ -55,6 +55,19 @@
   include_tasks: backups.yml
   when: nextcloud_backup is defined
 
+- name: Check config file status
+  stat:
+    path: "{{ nextcloud_destination }}/nextcloud/config/config.php"
+  register: nextcloud_config_file
+
+- name: Create config file if it doesn't exist
+  template:
+    src: config.php.j2
+    dest: "{{ nextcloud_destination }}/nextcloud/config/config.php"
+  when:
+    - nextcloud_config is defined
+    - not nextcloud_config_file.stat.exists
+
 - name: Configure Nextcloud installation
   lineinfile:
     path: "{{ nextcloud_destination }}/nextcloud/config/config.php"
