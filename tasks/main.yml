@@ -74,6 +74,5 @@
     regexp: "^  '{{ item.key }}' => .*,$"
     line: "  '{{ item.key }}' => {{ item.value }},"
     insertbefore: '^\);$'
-  no_log: yes
-  loop: "{{ nextcloud_config|dict2items }}"
-  when: nextcloud_config is defined
+  loop: "{{ nextcloud_config|default({})|dict2items }}"
+  no_log: true
