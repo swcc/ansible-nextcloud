@@ -76,3 +76,6 @@
     insertbefore: '^\);$'
   loop: "{{ nextcloud_config|default({})|dict2items }}"
   no_log: true
+
+- name: OnlyOffice hack
+  include_tasks: onlyoffice-hack.yml

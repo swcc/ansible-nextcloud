@@ -1,0 +1,11 @@
+[Unit]
+Description=Flush OnlyOffice Changes to disk
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+OnBootSec=30min
+Restart=always
+RestartSec={{ nextcloud_onlyoffice_force_flush_period }}
+ExecStart=sudo -u {{ nextcloud_dir_user }} php {{ nextcloud_destination }}/nextcloud/occ documentserver:flush
