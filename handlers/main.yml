@@ -1,0 +1,17 @@
+---
+- name: force systemd to reread config
+  systemd:
+    daemon_reload: yes
+  listen: "Enable and start service"
+
+- name: Enable OO hack service
+  systemd:
+    name: onlyoffice
+    enabled: yes
+  listen: "Enable and start service"
+
+- name: Start OO hack service
+  systemd:
+    name: onlyoffice
+    state: started
+  listen: "Enable and start service"

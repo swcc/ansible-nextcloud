@@ -5,7 +5,9 @@ nextcloud_dir_user: www-data
 nextcloud_dir_group: www-data
 # php.ini memory_limit parameter
 nextcloud_php_memory_limit: 512M
+
 # Enable backups with the following variable
+#
 # nextcloud_backup:
 #   destination_server: backups.example.org
 #   retention: 7
@@ -17,9 +19,17 @@ nextcloud_php_memory_limit: 512M
 #     username: nextcloud
 #     password: nextcloud
 
+# Enable OnlyOffice flush changes to disk hack
+# uncomment the next line if you want to install a recurrent hack
+# to flush onlyoffice changes to disk at regular intervals
+# Hack taken from https://help.nextcloud.com/t/onlyoffice-data-loss/20586/5
+#
+# nextcloud_onlyoffice_force_flush_period: 240s
+
 # Configure NC via ansible
 # WARNING: EXPERT CONFIG ONLY
 # WARNING: it is recommended to let the installer configure your NC install
+#
 # nextcloud_config:
 #   instanceid: "'{{ vault_nextcloud_instance_id }}'"
 #   version: "'{{ nextcloud_version }}.1'"
