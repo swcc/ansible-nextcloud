@@ -1,5 +1,5 @@
 ---
-nextcloud_version: 19.0.3
+nextcloud_version: 20.0.2
 nextcloud_destination: /var/www
 nextcloud_dir_user: www-data
 nextcloud_dir_group: www-data
