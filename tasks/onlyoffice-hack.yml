@@ -7,7 +7,7 @@
     owner: root
     group: root
   when: nextcloud_onlyoffice_force_flush_period is defined
-  notify: "Enable and start OO hack service"
+  notify: "Enable and start service"
 
 - name: Remove systemd onlyoffice hack service when not needed
   file:
