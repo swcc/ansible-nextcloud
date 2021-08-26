@@ -13,7 +13,7 @@ Basic example playbook:
 ```yaml
 - hosts: webservers
   roles:
-    - role: swcc.nextcloud
+    - role: swcc.ansible_nextcloud
       nextcloud_destination: /home/nextcloud
       nextcloud_version: 19.0.3
 ```
